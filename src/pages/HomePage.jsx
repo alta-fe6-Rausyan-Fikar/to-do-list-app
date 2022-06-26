@@ -10,10 +10,11 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [remove, setRemove] = useState([]);
   const [addPost, setPost] = useState({});
+  const [edit, setEdit] = useState({});
+  const [method, SetMethod] = useState('post');
 
   useEffect(() => {
     fetchData();
-    posData();
   }, []);
 
   function fetchData() {
@@ -49,7 +50,10 @@ const HomePage = () => {
         // handle error
         console.log(error);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        fetchData();
+      });
   };
 
   function posData() {
@@ -73,15 +77,64 @@ const HomePage = () => {
         // handle error
         console.log(error);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        fetchData();
+      });
+  }
+
+  function update(dataEdit) {
+    axios({
+      method: 'post',
+      url: `https://api.todoist.com/rest/v1/tasks/${dataEdit.id}`,
+      data: dataEdit,
+      headers: { Authorization: 'Bearer e2e489c6adec62b685e4d6f8b5058c4550847de2' },
+    })
+      .then((response) => {
+        console.log(response);
+        // handle success
+
+        setEdit({});
+        swal({
+          title: 'Good job!',
+          text: 'SUKSES EDIT',
+        });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+        fetchData();
+        SetMethod('post');
+      });
   }
 
   function action() {
     setStatus('Completed');
   }
+
   function handleChange(e) {
-    setPost({ ...setPost, [e.target.name]: e.target.value });
+    if (method === 'post') {
+      setPost({ ...setPost, [e.target.name]: e.target.value });
+    } else {
+      setEdit({ ...edit, [e.target.name]: e.target.value });
+    }
   }
+
+  const handleUpdate = (item) => {
+    setEdit(item);
+    SetMethod('edit');
+  };
+
+  const handleSubmit = () => {
+    if (method === 'post') {
+      posData();
+    } else {
+      update(edit);
+    }
+  };
 
   if (loading) {
     return (
@@ -95,8 +148,8 @@ const HomePage = () => {
         <div className="grid sm:grid-flow-row text-center md:text-left lg:text-center ">
           <div className="text-2xl flex justify-center mt-2 font-bold">To Do List</div>
           <div className=" mt-4 flex justify-center ">
-            <input className="border border-b-gray-900 focus:ring-4 p-2" type="text" name="content" id="content" Placeholder="isi disini" onChange={handleChange} />
-            <button className="bg-blue-400 hover:bg-blue-700 rounded-md text-white ml-5 p-2" onClick={() => posData()}>
+            <input className="border border-b-gray-900 focus:ring-4 p-2" type="text" name="content" value={edit.content ? edit.content : edit.adpost} Placeholder="isi disini" onChange={handleChange} />
+            <button className="bg-blue-400 hover:bg-blue-700 rounded-md text-white ml-5 p-2" onClick={() => handleSubmit()}>
               Submit
             </button>
           </div>
@@ -116,7 +169,9 @@ const HomePage = () => {
                     <button className="bg-green-500 py-1 mx-2 px-3 rounded-md" onClick={() => action()}>
                       Complete
                     </button>
-                    <button className="bg-blue-500 py-1 mx-2 px-3 rounded-md">Edit</button>
+                    <button className="bg-blue-500 py-1 mx-2 px-3 rounded-md" onClick={() => handleUpdate(item)}>
+                      Edit
+                    </button>
                     <button className="bg-red-500 py-1 lg:px-3 rounded-md" onClick={() => handleRemove(item.id)}>
                       Delete
                     </button>
