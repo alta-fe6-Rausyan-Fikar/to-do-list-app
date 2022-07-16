@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 
 const HomePage = () => {
-  const [status, setStatus] = useState('Not Completed');
+  // const [status, setStatus] = useState('Not Completed');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [remove, setRemove] = useState([]);
@@ -111,9 +111,9 @@ const HomePage = () => {
       });
   }
 
-  function action() {
-    setStatus('Completed');
-  }
+  // function action() {
+  //   setStatus('Completed');
+  // }
 
   function handleChange(e) {
     if (method === 'post') {
@@ -154,21 +154,21 @@ const HomePage = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 md:w-full font-bold mt-5 border-bottom border-black mb-3">
+          <div className="grid grid-cols-2 text-center  md:grid-cols-2 lg:grid-cols-2 w-full font-bold mt-5 border-bottom border-black mb-3">
             <p>Todo List</p>
-            <p>Status</p>
+            {/* <p>Status</p> */}
             <p>Actions</p>
           </div>
           <div>
             {data.map((item, index) => {
               return (
-                <div key={index} className="grid grid-cols-1 md:grid-cols-3 md:w-full lg:grid-cols-3 ">
+                <div key={index} className="grid text-center grid-cols-2 md:grid-cols-2 mw-full lg:grid-cols-2 ">
                   <p>{item.content}</p>
-                  <p>{status}</p>
+                  {/* <p>{status}</p> */}
                   <div className="text-white w-full ">
-                    <button className="bg-green-500 py-1 mx-2 px-3 rounded-md" onClick={() => action()}>
-                      Complete
-                    </button>
+                    {/* <button className="bg-green-500 py-1 mx-2 px-3 rounded-md" onClick={() => action()}>
+                      Sukses
+                    </button> */}
                     <button className="bg-blue-500 py-1 mx-2 px-3 rounded-md" onClick={() => handleUpdate(item)}>
                       Edit
                     </button>
