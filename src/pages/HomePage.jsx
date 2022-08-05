@@ -3,6 +3,8 @@ import React from 'react';
 import Layout from '../components/Layout';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
+import { FaRegEdit } from 'react-icons/fa';
+import { RiChatDeleteLine } from 'react-icons/ri';
 
 const HomePage = () => {
   // const [status, setStatus] = useState('Not Completed');
@@ -145,36 +147,35 @@ const HomePage = () => {
   } else {
     return (
       <Layout>
-        <div className="grid sm:grid-flow-row text-center md:text-left lg:text-center ">
-          <div className="text-2xl flex justify-center mt-2 font-bold">To Do List</div>
-          <div className=" mt-4 flex justify-center ">
-            <input className="border border-b-gray-900 focus:ring-4 p-2" type="text" name="content" value={edit.content ? edit.content : edit.adpost} Placeholder="isi disini" onChange={handleChange} />
-            <button className="bg-blue-400 hover:bg-blue-700 rounded-md text-white ml-5 p-2" onClick={() => handleSubmit()}>
-              Submit
-            </button>
+        <div className="grid sm:grid-flow-row text-center md:text-left lg:text-center w-full bg-slate-100 ">
+          <div className="text-2xl flex justify-center mt-5 font-bold font-sans">Add New Todo List</div>
+          <div className=" mt-5 flex flex-row  justify-center w-full  ">
+            <div className="flex flex-col justify-center w-1/2  ">
+              <input className="border border-b-4 bg-white   focus:ring-4 p-3" type="text" name="content" value={edit.content ? edit.content : edit.adpost} Placeholder="what do you want to do?" onChange={handleChange} />
+              <button className="bg-[#2592cd] hover:bg-cyan-600 flex justify-center items-center mt-3  rounded-md w-20 text-white m-auto p-2" onClick={() => handleSubmit()}>
+                Submit
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 text-center  md:grid-cols-2 lg:grid-cols-2 w-full font-bold mt-5 border-bottom border-black mb-3">
-            <p>Todo List</p>
-            {/* <p>Status</p> */}
-            <p>Actions</p>
+          <div className="text-2xl flex justify-center mt-16 font-bold font-sans">My Todo List</div>
+          <div className="flex justify-center mt-10 ">
+            <div className="flex justify-between border-b-4 border-[#2592cd] m-auto w-full sm:w-1/2 text-xl font-semibold font-sans">
+              <p>Todo List</p>
+              <p>Actions</p>
+            </div>
           </div>
+
           <div>
             {data.map((item, index) => {
               return (
-                <div key={index} className="grid text-center grid-cols-2 md:grid-cols-2 mw-full lg:grid-cols-2 ">
-                  <p>{item.content}</p>
-                  {/* <p>{status}</p> */}
-                  <div className="text-white w-full ">
-                    {/* <button className="bg-green-500 py-1 mx-2 px-3 rounded-md" onClick={() => action()}>
-                      Sukses
-                    </button> */}
-                    <button className="bg-blue-500 py-1 mx-2 px-3 rounded-md" onClick={() => handleUpdate(item)}>
-                      Edit
-                    </button>
-                    <button className="bg-red-500 py-1 lg:px-3 rounded-md" onClick={() => handleRemove(item.id)}>
-                      Delete
-                    </button>
+                <div className="flex justify-center mt-3 ">
+                  <div key={index} className="flex justify-between m-auto sm:w-1/2 w-full text-lg font-semibold ">
+                    <div>{item.content}</div>
+                    <div className="flex">
+                      <FaRegEdit className="text-amber-600 w-10 h-6 cursor-pointer" onClick={() => handleUpdate(item)} />
+                      <RiChatDeleteLine className=" cursor-pointer w-10 h-7 text-red-700" onClick={() => handleRemove(item.id)} />
+                    </div>
                   </div>
                 </div>
               );
