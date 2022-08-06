@@ -147,7 +147,7 @@ const HomePage = () => {
   } else {
     return (
       <Layout>
-        <div className="grid sm:grid-flow-row text-center md:text-left lg:text-center w-full bg-slate-100 ">
+        <div className="grid sm:grid-flow-row h-screen text-center md:text-left lg:text-center w-full bg-slate-100 ">
           <div className="text-2xl flex justify-center mt-5 font-bold font-sans">Add New Todo List</div>
           <div className=" mt-5 flex flex-row  justify-center w-full  ">
             <div className="flex flex-col justify-center w-1/2  ">
@@ -160,17 +160,17 @@ const HomePage = () => {
 
           <div className="text-2xl flex justify-center mt-16 font-bold font-sans">My Todo List</div>
           <div className="flex justify-center mt-10 ">
-            <div className="flex justify-between border-b-4 border-[#2592cd] m-auto w-full sm:w-1/2 text-xl font-semibold font-sans">
+            <div className="flex justify-evenly sm:justify-between border-b-4 border-[#2592cd] m-auto w-full sm:w-1/2 text-xl font-semibold font-sans">
               <p>Todo List</p>
               <p>Actions</p>
             </div>
           </div>
 
-          <div>
+          <div className="bg-slate-100">
             {data.map((item, index) => {
               return (
-                <div className="flex justify-center mt-3 ">
-                  <div key={index} className="flex justify-between m-auto sm:w-1/2 w-full text-lg font-semibold ">
+                <div className="flex justify-center  mt-3 mb-10 ">
+                  <div key={index} className="flex  justify-evenly sm:justify-between  sm:w-1/2 w-full text-lg font-semibold ">
                     <div>{item.content}</div>
                     <div className="flex">
                       <FaRegEdit className="text-amber-600 w-10 h-6 cursor-pointer" onClick={() => handleUpdate(item)} />
